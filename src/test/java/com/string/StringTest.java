@@ -15,7 +15,10 @@ public class StringTest {
 
     @Test
     public void testStringConcat() {
+        MyString str = new MyString("abcde");
 
+        Assert.assertThat(str.concat(""), is(new MyString("abcde")));
+        Assert.assertThat(str.concat("fghi"), is(new MyString("abcdefghi")));
     }
 
     @Test
@@ -30,15 +33,8 @@ public class StringTest {
     public void testStartsWith() {
         MyString str = new MyString("abcdef");
 
-        Assert.assertThat(str.startsWith("cde"), is(2));
-        Assert.assertThat(str.startsWith("gf"), is(-1));
-    }
-
-    @Test
-    public void testValueOf() {
-        MyString str = MyString.valueOf(100);
-
-        Assert.assertThat(str, is(new MyString("100")));
+        Assert.assertThat(str.startsWith("cde"), is(false));
+        Assert.assertThat(str.startsWith("abc"), is(true));
     }
 
     @Test
@@ -49,22 +45,10 @@ public class StringTest {
     }
 
     @Test
-    public void testSplit() {
-        MyString str = new MyString("ab cd ef");
-
-        MyString[] result = {
-                new MyString("ab"),
-                new MyString("cd"),
-                new MyString("ef")};
-
-        Assert.assertThat(str.split(" "), is(result));
-    }
-
-    @Test
     public void testTrim() {
-        MyString str = new MyString("ab cd ef");
+        MyString str = new MyString(" abc def   ");
 
-        Assert.assertThat(str.trim(), is(new MyString("abcdef")));
+        Assert.assertThat(str.trim(), is(new MyString("abc def")));
     }
 
     @Test
@@ -73,8 +57,4 @@ public class StringTest {
 
         Assert.assertThat(str.toCharArray(), is(new char[]{'a', 'b', 'c', 'd', 'e'}));
     }
-
-
-    // equals
-    // toString
 }
